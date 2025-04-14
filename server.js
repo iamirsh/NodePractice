@@ -1,27 +1,34 @@
-// 1. Import the HTTP module
 const http = require('http');
 
-// 2. Define the server port
-const PORT = 3000;
-
-// 3. Create the server
+// Create the server
 const server = http.createServer((req, res) => {
-  // 4. Handle routes
-  if (req.url === '/') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('<h1>Home Page</h1>');
+  // Set CORS headers (optional but useful for development)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  
+  // Handle different routes
+  if (req.url === '/api/products') {
+    const products = [
+      { id: 1, name: 'Laptop', price: 999 },
+      { id: 2, name: 'Phone', price: 699 }
+    ];
+    res.end(JSON.stringify(products));
   } 
-  else if (req.url === '/about') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('<h1>About Us</h1>');
+  else if (req.url === '/api/users') {
+    const users = [
+      { id: 1, name: 'Alice' },
+      { id: 2, name: 'Bob' }
+    ];
+    res.end(JSON.stringify(users));
   }
   else {
-    res.writeHead(404, { 'Content-Type': 'text/html' });
-    res.end('<h1>404 Not Found</h1>');
+    res.statusCode = 404;
+    res.end(JSON.stringify({ error: 'Route not found' }));
   }
 });
 
-// 5. Start the server
+// Start the server
+const PORT = 3000;
 server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+  console.log(`JSON API server running on http://localhost:${PORT}`);
 });
