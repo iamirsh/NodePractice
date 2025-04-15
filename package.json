@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "organize": "node cli/organizer"
+    "organize": "node cli/organizer",
+    "dev-api": "nodemon blog-api.js"
   },
   "keywords": [],
   "author": "",
